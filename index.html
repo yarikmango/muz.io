@@ -151,7 +151,7 @@
         <ul class="song-list">
             <li>SZN</li>
             <li>FREERIO 3</li>
-            <li>POX VAWE  </li>
+            <li>POX VAWE</li>
             <li>POX VAWE 0.5</li>
             <li>Скучаю но работаю</li>
             <li>FREERIO 2</li>
@@ -176,7 +176,7 @@
 
 </div>
 
-<!-- Блок, де з’явиться результат -->
+<!-- Блок результату -->
 <div class="result-box" id="resultBox">
     <h2>🎧 Спільні треки</h2>
     <p id="resultText">Оберіть двох виконавців, щоб переглянути спільні треки.</p>
@@ -189,6 +189,30 @@
     const resultBox = document.getElementById('resultBox');
     const resultText = document.getElementById('resultText');
     let selected = [];
+
+    const collaborations = {
+        'Lovv66+OG Buda': [
+            'Тоска — OG Buda & Lovv66',
+            '<audio src ="toska.mp3.mp3" controls></audio>',
+            'Неправильно — Lovv66 & OG Buda',
+            '<audio src ="nep.mp3.mp3" controls></audio>',
+            'КУП2Х — OG Buda & Lovv66',
+            'Снова — OG Buda & Mayot, Lovv66'
+        ],
+        'Платина+Lovv66': [
+            'Гринч — Платина & Lovv66',
+            'Одна — Платина & Lovv66',
+            'Валына — Lovv66 & Платина'
+        ],
+        'Платина+OG Buda': [
+            'Утро — OG Buda & Платина',
+            'Сладких снов (альбом) — Платина & OG Buda',
+            'Воссап — OG Buda & Платина',
+            'Это не любов — Платина & OG Buda',
+            'Выше облаков — OG Buda & Платина , Feduk , Obladaet ',
+            'Abu Dhabi Ba6y — Платина & OG Buda, Mayot'
+        ]
+    };
 
     cards.forEach(card => {
         card.addEventListener('click', () => {
@@ -212,21 +236,28 @@
             return;
         }
 
-        // Показуємо заготовку результату
+        const combo1 = `${selected[0]}+${selected[1]}`;
+        const combo2 = `${selected[1]}+${selected[0]}`;
+        const songs = collaborations[combo1] || collaborations[combo2];
+
         resultBox.style.display = 'block';
-        resultText.innerHTML = `
-        Ви обрали: <strong>${selected[0]}</strong> і <strong>${selected[1]}</strong>.<br><br>
-        Тоска — OG Buda & Lovv66
-        <br>Неправильно — Lovv66 & OG Buda</br>
-        '<audio src ="toska.mp3.mp3" controls></audio>',
-        КУП2Х — OG Buda & Lovv66
-        <br>Снова - OG Buda & Mayot,Lovv66</br>
-
-
-    `;
+        if (songs) {
+            resultText.innerHTML = `
+                Ви обрали: <strong>${selected[0]}</strong> і <strong>${selected[1]}</strong>.<br><br>
+                ${songs.map(s => `🎵 ${s}`).join('<br>')}
+            `;
+        } else {
+            resultText.innerHTML = `
+                Ви обрали: <strong>${selected[0]}</strong> і <strong>${selected[1]}</strong>.<br><br>
+                😢 Спільних треків не знайдено.
+            `;
+        }
     });
 </script>
 
 </body>
 </html>
+можеш додати щоб після того коли ми обрали виконавців і перглядаємо їхні спільні треки  коло назви самих треків була кномка play яка буде вмикати пісню яку я додам через посилання
+
+
 
